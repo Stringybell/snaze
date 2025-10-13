@@ -4,18 +4,15 @@ using namespace std;
 
 // Creates a matrix of pointers with n rows and n columns
 
-bool** matrix_maker(int rows, int columns){
+bool* matrix_maker(int rows, int columns){
 
-    bool** matrix = new bool * [rows];
+    bool* matrix = new bool [rows * columns];
 
-    for (int i = 0; i < rows ; i++){
-        matrix[i] = new bool[columns];
-    }
 
 // Initialises the matrix as false
     for (int i = 0; i < rows ; i++){
         for (int x = 0; x < columns; x++){
-            matrix[i][x] = false;
+            matrix [i * columns + x ] = false;
         }
     }
 
@@ -23,10 +20,7 @@ bool** matrix_maker(int rows, int columns){
     return matrix;
 
 }
-void free_matrix(bool** matrix, int rows){
-    for (int i = 0; i < rows; i++){
-        delete matrix [i];
-    }
+void free_matrix(bool* matrix){
     delete matrix;
 }
 
@@ -35,16 +29,18 @@ int main() {
     int rows,columns;
     cin >> rows >> columns;
 
-    bool** matrix = matrix_maker(rows,columns);
+    bool* matrix = matrix_maker(rows,columns);
 
     for (int i = 0; i < rows ; i++){
         for (int x = 0; x < columns; x++){
-            cout << matrix[i][x];
+            cout << matrix[i * columns + x];
+
         }
         cout << "\n" ;
     }
 
-    free_matrix(matrix, rows);
+
+    free_matrix(matrix);
 
 
     return 0;
